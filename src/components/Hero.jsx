@@ -1,19 +1,19 @@
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, Float, Stars } from '@react-three/drei';
+import { Environment, Float } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, ChevronDown } from 'lucide-react';
 import LiquidOrb from './VFX/LiquidOrb';
 
 const Hero = () => {
   return (
-    <section id="home" className="relative min-h-screen w-full bg-black overflow-hidden flex items-center justify-center">
+    <section id="home" className="relative min-h-screen w-full overflow-hidden flex items-center justify-center">
       {/* 3D Background Layer */}
       <div className="absolute inset-0 z-0">
         <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={[1, 2]}>
           <Suspense fallback={null}>
             <Environment preset="city" />
-            <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+            
             <ambientLight intensity={0.5} />
             <pointLight position={[10, 10, 10]} intensity={1} color="#4299e1" />
             <pointLight position={[-10, -10, -10]} intensity={1} color="#ed64a6" />
@@ -22,7 +22,6 @@ const Hero = () => {
                <LiquidOrb />
             </Float>
             
-            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
           </Suspense>
         </Canvas>
       </div>

@@ -16,7 +16,7 @@ const About = () => {
   });
 
   return (
-    <section id="about" ref={ref} className="relative min-h-screen bg-dark py-28 text-white">
+    <section id="about" ref={ref} className="relative min-h-screen py-28 text-white">
       {/* Background Ambience */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-[10%] left-[5%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px]"></div>

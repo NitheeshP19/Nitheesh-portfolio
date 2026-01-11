@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 import { Layout, Smartphone, Video, Film, Camera, Zap, Globe, Search, Cloud } from 'lucide-react';
-import Background3D from './VFX/Background3D';
+
 
 
 
@@ -86,11 +86,8 @@ const Services = () => {
   };
 
   return (
-    <section id="services" className="py-20 bg-dark relative overflow-hidden">
-      <Background3D shapes={[
-        { position: [-5, 3, -10], geometry: <sphereGeometry args={[1, 32, 32]} />, color: "#4299e1", speed: 0.6 },
-        { position: [5, -3, -10], geometry: <coneGeometry args={[1, 2, 32]} />, color: "#9f7aea", speed: 0.8 },
-      ]} />
+    <section id="services" className="py-20 relative overflow-hidden">
+
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="max-w-7xl mx-auto px-6">

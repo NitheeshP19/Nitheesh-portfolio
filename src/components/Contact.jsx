@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin, Send, Github, Linkedin, Instagram } from 'lucide-r
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-20 bg-dark relative flex items-center justify-center min-h-screen">
+    <section id="contact" className="py-20 relative flex items-center justify-center min-h-screen">
        {/* Background Glow */}
        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-secondary/10 rounded-full blur-[100px] pointer-events-none"></div>
 

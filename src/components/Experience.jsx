@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
-import Background3D from './VFX/Background3D';
+
 
 
 
@@ -34,13 +34,9 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-20 bg-dark relative overflow-hidden">
+    <section id="experience" className="py-20 relative overflow-hidden">
         {/* Background Elements */}
-        <Background3D shapes={[
-          { position: [-6, 2, -10], geometry: <boxGeometry args={[1, 1, 1]} />, color: "#4299e1", speed: 0.5 },
-          { position: [6, -2, -10], geometry: <octahedronGeometry args={[1, 0]} />, color: "#ed64a6", speed: 0.7 },
-          { position: [0, 4, -15], geometry: <torusGeometry args={[1, 0.4, 16, 100]} />, color: "#48bb78", speed: 0.3 }
-        ]} />
+
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none"></div>
         
         <div className="max-w-7xl mx-auto px-6 relative z-10">
