@@ -1,24 +1,58 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Layout, Smartphone, Video, Film, Camera, Zap } from 'lucide-react';
+
+import { Layout, Smartphone, Video, Film, Camera, Zap, Globe, Search, Cloud } from 'lucide-react';
+import Background3D from './VFX/Background3D';
 
 
 
 const Services = () => {
-  const [servicesData, setServicesData] = React.useState([]);
+  const [servicesData, setServicesData] = React.useState([
+    {
+      title: "Web Development",
+      description: "Crafting scalable, high-performance web applications using modern architectures. From responsive landing pages to complex enterprise solutions, I deliver clean, maintainable code that drives business growth."
+    },
+    {
+      title: "App Development",
+      description: "Engineering intuitive, cross-platform mobile experiences utilizing React Native to build robust applications that provide seamless user interactions across Android and iOS ecosystems."
+    },
+    {
+      title: "Content Creation",
+      description: "Producing high-impact technical content that resonates with audiences. Specialized in breaking down complex concepts into engaging, digestible media formats for diverse platforms."
+    },
+    {
+      title: "Video Editing",
+      description: "Transforming raw footage into cinematic narratives. Expert in color grading, sound design, and pacing to create visually stunning stories that captivate viewers and enhance brand identity."
+    },
+    {
+      title: "VFX & Animations",
+      description: "Designing immersive visual experiences. Leveraging 3D tools and motion graphics to add depth, realism, and dynamic flair to digital interfaces and video productions."
+    },
+    {
+      title: "Page Automation",
+      description: "Streamlining operations through intelligent automation. Developing custom scripts and bots to eliminate repetitive tasks, optimize workflows, and boost operational efficiency."
+    },
+    {
+      title: "UI/UX Design",
+      description: "Designing intuitive and accessible user interfaces. Focusing on user-centered design principles to create engaging digital products that delight users."
+    },
+    {
+      title: "SEO Optimization",
+      description: "Optimizing websites for search engines to increase visibility and drive organic traffic. Implementing best practices for on-page and technical SEO."
+    },
+    {
+      title: "Cloud Architecture",
+      description: "Designing scalable and secure cloud infrastructure. Leveraging AWS/Azure services to ensure high availability and disaster recovery for enterprise applications."
+    }
+  ]);
 
   React.useEffect(() => {
-    fetch('/api/services')
-      .then(res => res.json())
-      .then(data => {
-        // Map icons back to the data since JSON can't store React components
-        const servicesWithIcons = data.map(service => ({
-            ...service,
-            icon: getIcon(service.title)
-        }));
-        setServicesData(servicesWithIcons);
-      })
-      .catch(err => console.error(err));
+    // Map icons to the hardcoded data
+    const servicesWithIcons = servicesData.map(service => ({
+        ...service,
+        icon: getIcon(service.title)
+    }));
+    setServicesData(servicesWithIcons);
   }, []);
 
   const getIcon = (title) => {
@@ -28,8 +62,11 @@ const Services = () => {
         case "Content Creation": return <Video className="w-8 h-8 text-accent" />;
         case "Video Editing": return <Film className="w-8 h-8 text-primary" />;
         case "VFX & Animations": return <Zap className="w-8 h-8 text-secondary" />;
-        case "Page Automation": return <Camera className="w-8 h-8 text-accent" />; // Using Camera as placeholder if Zap is duplicate or different
-        default: return <Layout className="w-8 h-8" />;
+        case "Page Automation": return <Camera className="w-8 h-8 text-accent" />; 
+        case "UI/UX Design": return <Layout className="w-8 h-8 text-primary" />;
+        case "SEO Optimization": return <Search className="w-8 h-8 text-secondary" />;
+        case "Cloud Architecture": return <Cloud className="w-8 h-8 text-accent" />;
+        default: return <Globe className="w-8 h-8" />;
     }
   };
 
@@ -49,7 +86,11 @@ const Services = () => {
   };
 
   return (
-    <section id="services" className="py-20 bg-dark relative">
+    <section id="services" className="py-20 bg-dark relative overflow-hidden">
+      <Background3D shapes={[
+        { position: [-5, 3, -10], geometry: <sphereGeometry args={[1, 32, 32]} />, color: "#4299e1", speed: 0.6 },
+        { position: [5, -3, -10], geometry: <coneGeometry args={[1, 2, 32]} />, color: "#9f7aea", speed: 0.8 },
+      ]} />
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="max-w-7xl mx-auto px-6">
@@ -63,7 +104,7 @@ const Services = () => {
             My <span className="text-gradient">Services</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            I offer a wide range of creative and technical services to help you bring your ideas to life.
+            I offer a comprehensive suite of creative and technical services designed to transform your digital presence and drive business growth. 
           </p>
         </motion.div>
 

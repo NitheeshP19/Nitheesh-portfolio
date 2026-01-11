@@ -1,137 +1,114 @@
-import React, { useState, useEffect } from 'react';
+import React, { Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Environment, Float, Stars } from '@react-three/drei';
 import { motion } from 'framer-motion';
-import { ArrowRight, Mail, Download, FlaskConical, Code, Database, Server } from 'lucide-react';
+import { ArrowRight, Download, ChevronDown } from 'lucide-react';
+import LiquidOrb from './VFX/LiquidOrb';
 
 const Hero = () => {
-  const roles = [
-    "Full Stack Developer",
-    "App Developer",
-    "Content Creator",
-    "Video Editor",
-    "VFX & Animations Artist"
-  ];
-
-  const [currentRole, setCurrentRole] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentRole((prev) => (prev + 1) % roles.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-dark pt-28 md:pt-0">
-      {/* Animated Background */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px] animate-pulse"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-[20%] right-[20%] w-[20%] h-[20%] bg-accent/10 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '4s' }}></div>
-        
-        {/* Floating Icons */}
-        <FloatingIcon delay={0} x="10%" y="20%" icon={<FlaskConical size={40} />} color="text-gray-500/20" />
-        <FloatingIcon delay={2} x="80%" y="15%" icon={<span className="font-bold text-xl">Django</span>} color="text-gray-500/20" />
-        <FloatingIcon delay={4} x="15%" y="70%" icon={<Code size={40} />} color="text-gray-500/20" />
-        <FloatingIcon delay={1} x="85%" y="65%" icon={<Database size={40} />} color="text-gray-500/20" />
-        <FloatingIcon delay={3} x="50%" y="15%" icon={<Server size={40} />} color="text-gray-500/10" />
+    <section id="home" className="relative min-h-screen w-full bg-black overflow-hidden flex items-center justify-center">
+      {/* 3D Background Layer */}
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={[1, 2]}>
+          <Suspense fallback={null}>
+            <Environment preset="city" />
+            <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+            <ambientLight intensity={0.5} />
+            <pointLight position={[10, 10, 10]} intensity={1} color="#4299e1" />
+            <pointLight position={[-10, -10, -10]} intensity={1} color="#ed64a6" />
+            
+            <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+               <LiquidOrb />
+            </Float>
+            
+            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+          </Suspense>
+        </Canvas>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
+      {/* Overlay Gradient for Text Readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/90 pointer-events-none z-10"></div>
+      
+      {/* Content Layer */}
+      <div className="relative z-20 w-full max-w-7xl mx-auto px-4 md:px-6 text-center pt-20 md:pt-0">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="mb-8 inline-block"
+        >
+          <span className="px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs md:text-sm font-medium text-cyan-400 backdrop-blur-md">
+            Available for New Projects
+          </span>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading text-white tracking-tight mb-8 drop-shadow-2xl"
+        >
+          Crafting <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 animate-gradient">Digital</span>
+          <br className="hidden md:block" />
+          <span className="relative block md:inline mt-2 md:mt-0">
+            Experiences
+            <motion.span 
+              className="absolute -bottom-2 left-1/2 md:left-0 w-24 md:w-full h-1 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full transform -translate-x-1/2 md:translate-x-0"
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ delay: 1, duration: 1 }}
+            ></motion.span>
+          </span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-base md:text-xl text-gray-300 max-w-xl md:max-w-2xl mx-auto mb-10 md:mb-12 leading-relaxed px-4"
+        >
+          I architect immersive web solutions that blend technical excellence with cinematic visuals. 
+          Specializing in scalable full-stack applications and high-performance 3D interfaces.
+        </motion.p>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center w-full max-w-md mx-auto sm:max-w-none"
         >
-          <h1 className="text-5xl md:text-7xl font-bold font-heading mb-6 leading-tight flex flex-col md:block">
-            <motion.span 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              Hi, I'm 
-            </motion.span>
-            {" "}
-            <motion.span 
-              className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4, type: "spring" }}
-            >
-               Nitheesh P
-            </motion.span>
-          </h1>
+          <a
+            href="#contact"
+            className="group relative w-full sm:w-auto px-8 py-4 bg-white/10 text-white rounded-full font-bold overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(66,153,225,0.5)] border border-white/10 backdrop-blur-md text-center"
+          >
+             <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-500 to-blue-600 opacity-20 group-hover:opacity-40 transition-opacity"></span>
+             <span className="relative flex items-center justify-center gap-2">
+               Start a Project <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+             </span>
+          </a>
 
-          <div className="h-12 md:h-16 mb-8 overflow-hidden">
-            <motion.p 
-              key={currentRole}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="text-2xl md:text-4xl text-gray-300 font-light"
-            >
-              I am a <span className="text-white font-semibold">{roles[currentRole]}</span>
-            </motion.p>
-          </div>
-
-          <p className="max-w-2xl mx-auto text-gray-400 text-lg mb-10 leading-relaxed">
-            Structuring the web and apps with passion. Blending technical expertise with creative vision to build cinematic, functional, and premium digital experiences.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <motion.a 
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-full text-white font-semibold shadow-lg shadow-primary/30 hover:shadow-primary/50 flex items-center gap-2 group"
-            >
-              Contact Me
-              <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-            </motion.a>
-            <motion.a 
-              href="#about"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-white/5 border border-white/10 rounded-full text-white font-semibold hover:bg-white/10 transition-colors flex items-center gap-2"
-            >
-              View My Work
-              <ArrowRight className="w-5 h-5" />
-            </motion.a>
-          </div>
+          <a
+            href="/resume.pdf"
+            className="w-full sm:w-auto px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-bold hover:bg-white/5 transition-all hover:scale-105 flex items-center justify-center gap-2"
+          >
+            Download CV <Download size={20} />
+          </a>
         </motion.div>
       </div>
 
-      {/* Scroll Down Indicator */}
-      <motion.div 
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 10, 0] }}
+        transition={{ delay: 2, duration: 2, repeat: Infinity }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-gray-400 z-20 cursor-pointer hidden md:block" // Hidden on small mobile to give more space
+        onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
       >
-        <div className="w-[30px] h-[50px] rounded-3xl border-2 border-white/20 flex justify-center p-2">
-          <div className="w-1 h-3 bg-primary rounded-full"></div>
-        </div>
+        <ChevronDown size={32} />
       </motion.div>
     </section>
   );
 };
-
-const FloatingIcon = ({ icon, delay, x, y, color }) => (
-  <motion.div
-    className={`absolute ${color}`}
-    style={{ left: x, top: y }}
-    animate={{ 
-      y: [0, -20, 0],
-      opacity: [0.3, 0.6, 0.3],
-      rotate: [0, 10, -10, 0]
-    }}
-    transition={{ 
-      duration: 5, 
-      delay: delay, 
-      repeat: Infinity, 
-      ease: "easeInOut" 
-    }}
-  >
-    {icon}
-  </motion.div>
-);
 
 export default Hero;

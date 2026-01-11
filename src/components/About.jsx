@@ -99,7 +99,7 @@ const TimelineItem = ({ side, icon, title, subtitle, description, tags }) => {
       className={`relative flex flex-col md:flex-row items-center gap-8 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}
     >
       {/* Timeline Dot */}
-      <div className="absolute left-[20px] md:left-1/2 w-4 h-4 rounded-full bg-dark border-2 border-primary z-20 transform -translate-x-1/2 md:transform-none shadow-[0_0_15px_rgba(99,102,241,0.5)]">
+      <div className="absolute left-[20px] md:left-1/2 w-4 h-4 rounded-full bg-dark border-2 border-primary z-20 transform -translate-x-1/2 md:transform-none shadow-[0_0_15px_rgba(99,102,241,0.5)] flex items-center justify-center">
         <div className="absolute inset-0 bg-primary/50 rounded-full animate-ping"></div>
       </div>
 

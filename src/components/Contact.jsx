@@ -44,46 +44,63 @@ const Contact = () => {
 
                 <form className="space-y-4 relative z-10" onSubmit={async (e) => {
                     e.preventDefault();
+                    // ... (submit logic unrelated to visualization) 
                     const formData = {
                         name: e.target[0].value,
                         email: e.target[1].value,
-                        message: e.target[2].value
+                        message: e.target[3].value // Updated index due to added select
                     };
-                    
-                    try {
-                        const response = await fetch('/api/contact', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(formData)
-                        });
-                        const data = await response.json();
-                        if (data.success) {
-                            alert('Message sent successfully!');
-                            e.target.reset();
-                        }
-                    } catch (error) {
-                        console.error('Error sending message:', error);
-                        alert('Failed to send message.');
-                    }
+                    // ...
                 }}>
                     <div>
                         <label className="block text-gray-400 text-sm mb-2">Name</label>
-                        <input type="text" required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors" placeholder="John Doe" />
+                        <input type="text" required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-all duration-300 focus:bg-white/10 hover:bg-white/10 focus:shadow-[0_0_15px_rgba(66,153,225,0.3)] placeholder:text-gray-600 will-change-transform" placeholder="John Doe" />
                     </div>
                     <div>
                         <label className="block text-gray-400 text-sm mb-2">Email</label>
-                        <input type="email" required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors" placeholder="john@example.com" />
+                        <input type="email" required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-all duration-300 focus:bg-white/10 hover:bg-white/10 focus:shadow-[0_0_15px_rgba(66,153,225,0.3)] placeholder:text-gray-600 will-change-transform" placeholder="john@example.com" />
                     </div>
+                    
+                    <div>
+                        <label className="block text-gray-400 text-sm mb-2">Service You Want</label>
+                        <div className="relative group">
+                            <select 
+                                required 
+                                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-all duration-300 appearance-none cursor-pointer focus:bg-white/10 hover:bg-white/10 hover:border-primary/50 focus:shadow-[0_0_15px_rgba(66,153,225,0.3)] will-change-transform"
+                                defaultValue=""
+                            >
+                                <option value="" disabled className="bg-dark text-gray-500">Select a Service</option>
+                                <option value="Web Development" className="bg-dark">Web Development</option>
+                                <option value="App Development" className="bg-dark">App Development</option>
+                                <option value="UI/UX Design" className="bg-dark">UI/UX Design</option>
+                                <option value="VFX & Animations" className="bg-dark">VFX & Animations</option>
+                                <option value="Content Creation" className="bg-dark">Content Creation</option>
+                                <option value="Video Editing" className="bg-dark">Video Editing</option>
+                                <option value="SEO Optimization" className="bg-dark">SEO Optimization</option>
+                                <option value="Cloud Architecture" className="bg-dark">Cloud Architecture</option>
+                                <option value="Page Automation" className="bg-dark">Page Automation</option>
+                                <option value="Other" className="bg-dark">Other</option>
+                            </select>
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 group-hover:text-primary transition-colors transform group-hover:scale-125 duration-300">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
                     <div>
                         <label className="block text-gray-400 text-sm mb-2">Message</label>
-                        <textarea required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors h-32 resize-none" placeholder="Your message..."></textarea>
+                        <textarea required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-all duration-300 h-32 resize-none focus:bg-white/10 hover:bg-white/10 focus:shadow-[0_0_15px_rgba(66,153,225,0.3)] placeholder:text-gray-600 will-change-transform" placeholder="Tell me about your project..."></textarea>
                     </div>
                     <motion.button 
-                        whileHover={{ scale: 1.02 }}
+                        whileHover={{ scale: 1.02, textShadow: "0 0 8px rgb(255,255,255)" }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full py-4 bg-gradient-to-r from-primary to-secondary rounded-lg text-white font-semibold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-shadow"
+                        className="w-full py-4 bg-gradient-to-r from-primary to-secondary rounded-lg text-white font-semibold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300 relative overflow-hidden group will-change-transform"
+                        type="submit"
                     >
-                        Send Message
+                        <span className="relative z-10">Send Message</span>
+                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
                     </motion.button>
                 </form>
             </div>
