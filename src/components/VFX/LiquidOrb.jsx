@@ -151,7 +151,7 @@ const LiquidOrb = () => {
 
   return (
     <mesh ref={mesh} position={[0, 0, 0]} scale={scale}>
-      <icosahedronGeometry args={[1, 100]} />
+      <icosahedronGeometry args={[1, 30]} />
       <shaderMaterial
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
