@@ -7,52 +7,19 @@ import { Layout, Smartphone, Video, Film, Camera, Zap, Globe, Search, Cloud } fr
 
 
 const Services = () => {
-  const [servicesData, setServicesData] = React.useState([
-    {
-      title: "Web Development",
-      description: "Crafting scalable, high-performance web applications using modern architectures. From responsive landing pages to complex enterprise solutions, I deliver clean, maintainable code that drives business growth."
-    },
-    {
-      title: "App Development",
-      description: "Engineering intuitive, cross-platform mobile experiences utilizing React Native to build robust applications that provide seamless user interactions across Android and iOS ecosystems."
-    },
-    {
-      title: "Content Creation",
-      description: "Producing high-impact technical content that resonates with audiences. Specialized in breaking down complex concepts into engaging, digestible media formats for diverse platforms."
-    },
-    {
-      title: "Video Editing",
-      description: "Transforming raw footage into cinematic narratives. Expert in color grading, sound design, and pacing to create visually stunning stories that captivate viewers and enhance brand identity."
-    },
-    {
-      title: "VFX & Animations",
-      description: "Designing immersive visual experiences. Leveraging 3D tools and motion graphics to add depth, realism, and dynamic flair to digital interfaces and video productions."
-    },
-    {
-      title: "Page Automation",
-      description: "Streamlining operations through intelligent automation. Developing custom scripts and bots to eliminate repetitive tasks, optimize workflows, and boost operational efficiency."
-    },
-    {
-      title: "UI/UX Design",
-      description: "Designing intuitive and accessible user interfaces. Focusing on user-centered design principles to create engaging digital products that delight users."
-    },
-    {
-      title: "SEO Optimization",
-      description: "Optimizing websites for search engines to increase visibility and drive organic traffic. Implementing best practices for on-page and technical SEO."
-    },
-    {
-      title: "Cloud Architecture",
-      description: "Designing scalable and secure cloud infrastructure. Leveraging AWS/Azure services to ensure high availability and disaster recovery for enterprise applications."
-    }
-  ]);
+  const [servicesData, setServicesData] = React.useState([]);
 
   React.useEffect(() => {
-    // Map icons to the hardcoded data
-    const servicesWithIcons = servicesData.map(service => ({
-        ...service,
-        icon: getIcon(service.title)
-    }));
-    setServicesData(servicesWithIcons);
+    fetch('/api/services')
+      .then(res => res.json())
+      .then(data => {
+        const servicesWithIcons = data.map(service => ({
+            ...service,
+            icon: getIcon(service.title)
+        }));
+        setServicesData(servicesWithIcons);
+      })
+      .catch(err => console.error('Error fetching services:', err));
   }, []);
 
   const getIcon = (title) => {

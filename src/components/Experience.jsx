@@ -5,33 +5,20 @@ import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
 
 
 const Experience = () => {
-  const stats = [
-    { value: 17, label: "Web Development", suffix: "+" },
-    { value: 3, label: "App Development", suffix: "+" },
-    { value: 100, label: "Client Satisfaction", suffix: "%" },
-    { value: 24, label: "Support Available", suffix: "/7" },
-  ];
+  const [stats, setStats] = React.useState([]);
+  const [experience, setExperience] = React.useState([]);
 
-  const experience = [
-    {
-      role: "Lead Full Stack Consultant",
-      company: "Enterprise Solutions",
-      period: "2024 - 2025",
-      description: "Spearheaded the architecture and development of scalable microservices for high-traffic platforms. Optimized system performance by 40% and led the migration of legacy systems to modern cloud-native infrastructures."
-    },
-    {
-      role: "Freelance Web Developer",
-      company: "Global Client Projects",
-      period: "2022 - 2023",
-      description: "Delivered 15+ custom web applications for diverse international clients. Combined creative UI/UX strategies with robust technical implementation to boost client engagement metrics by over 60%."
-    },
-    {
-      role: "Open Source Contributor",
-      company: "GitHub Community",
-      period: "2022 - 2025",
-      description: "Actively maintained and contributed to developer tooling ecosystems. authored documentation used by thousands of developers and fixed critical bugs in popular frontend libraries."
-    }
-  ];
+  React.useEffect(() => {
+    fetch('/api/stats')
+      .then(res => res.json())
+      .then(data => setStats(data))
+      .catch(err => console.error('Error fetching stats:', err));
+
+    fetch('/api/experience')
+      .then(res => res.json())
+      .then(data => setExperience(data))
+      .catch(err => console.error('Error fetching experience:', err));
+  }, []);
 
   return (
     <section id="experience" className="py-20 relative overflow-hidden">

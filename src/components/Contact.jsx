@@ -14,15 +14,15 @@ const Contact = () => {
            whileInView={{ opacity: 1, scale: 1 }}
            viewport={{ once: true }}
            transition={{ duration: 0.6 }}
-           className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden relative"
+           className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-12 shadow-2xl overflow-hidden relative"
         >
             <div className="absolute top-0 right-0 p-12 opacity-10 pointer-events-none">
                 <Send size={200} />
             </div>
 
-            <div className="grid md:grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12">
                 <div>
-                     <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">
+                     <h2 className="text-2xl md:text-4xl font-bold font-heading mb-6">
                         Let's <span className="text-gradient">Connect</span>
                      </h2>
                      <p className="text-gray-400 mb-8 leading-relaxed">
@@ -44,13 +44,42 @@ const Contact = () => {
 
                 <form className="space-y-4 relative z-10" onSubmit={async (e) => {
                     e.preventDefault();
-                    // ... (submit logic unrelated to visualization) 
+                    const form = e.target;
                     const formData = {
-                        name: e.target[0].value,
-                        email: e.target[1].value,
-                        message: e.target[3].value // Updated index due to added select
+                        name: form.elements[0].value,
+                        email: form.elements[1].value,
+                        // Select is at index 2
+                        service: form.elements[2].value,
+                        message: form.elements[3].value
                     };
-                    // ...
+                    
+                    const btn = form.querySelector('button[type="submit"]');
+                    const originalText = btn.innerText;
+                    btn.disabled = true;
+                    btn.innerText = 'Sending...';
+
+                    try {
+                        const response = await fetch('/api/contact', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(formData),
+                        });
+                        
+                        if (response.ok) {
+                            alert('Message sent successfully!');
+                            form.reset();
+                        } else {
+                            alert('Failed to send message. Please try again.');
+                        }
+                    } catch (error) {
+                        console.error('Error sending message:', error);
+                        alert('An error occurred. Please try again.');
+                    } finally {
+                        btn.disabled = false;
+                        btn.innerText = originalText;
+                    }
                 }}>
                     <div>
                         <label className="block text-gray-400 text-sm mb-2">Name</label>

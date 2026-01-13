@@ -54,6 +54,7 @@ app.get('/api/services', (req, res) => {
       title: "Page Automation",
       description: "Streamlining operations through intelligent automation. Developing custom scripts and bots to eliminate repetitive tasks, optimize workflows, and boost operational efficiency."
     },
+    {
       title: "UI/UX Design",
       description: "Designing intuitive and accessible user interfaces. Focusing on user-centered design principles to create engaging digital products that delight users."
     },
