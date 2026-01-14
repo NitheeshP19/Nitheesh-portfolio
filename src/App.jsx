@@ -8,6 +8,7 @@ import Experience from './components/Experience';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import SkyBackground from './components/VFX/SkyBackground';
+import ScrollProgress from './components/VFX/ScrollProgress';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <div className="relative min-h-screen text-white selection:bg-primary/30 selection:text-white">
+      <ScrollProgress />
       <SkyBackground />
       <Navbar />
       

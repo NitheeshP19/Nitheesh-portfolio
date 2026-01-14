@@ -5,26 +5,55 @@ import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
 
 
 const Experience = () => {
-  const [stats, setStats] = React.useState([]);
-  const [experience, setExperience] = React.useState([]);
+  /* 
+    Directly defining data for static deployment (GitHub Pages).
+    The backend /api/stats and /api/experience routes won't work on static hosting.
+  */
+  const stats = [
+    { value: 17, label: "Web Development", suffix: "+" },
+    { value: 3, label: "App Development", suffix: "+" },
+    { value: 100, label: "Client Satisfaction", suffix: "%" },
+    { value: 24, label: "Support Available", suffix: "/7" },
+  ];
 
-  React.useEffect(() => {
-    fetch('/api/stats')
-      .then(res => res.json())
-      .then(data => setStats(data))
-      .catch(err => console.error('Error fetching stats:', err));
-
-    fetch('/api/experience')
-      .then(res => res.json())
-      .then(data => setExperience(data))
-      .catch(err => console.error('Error fetching experience:', err));
-  }, []);
+  const experience = [
+    {
+        role: "Senior Full Stack Developer",
+        company: "TechSolutions Inc.",
+        period: "2023 - Present",
+        description: "Leading the development of enterprise-scale web applications. Architected microservices solutions and mentored junior developers. Improved system performance by 40%."
+    },
+    {
+        role: "Freelance Creative Technologist",
+        company: "Self-Employed",
+        period: "2021 - 2023",
+        description: "Delivered custom digital solutions for diverse clients. Combined technical development with creative content strategy to boost client engagement metrics."
+    },
+    {
+        role: "Web Developer",
+        company: "Digital Studio",
+        period: "2020 - 2021",
+        description: "Collaborated with designers to implement pixel-perfect user interfaces. Specialized in frontend animations and interactive experiences."
+    },
+    {
+        role: "Frontend Developer Intern",
+        company: "Creative Agencies",
+        period: "2019 - 2020",
+        description: "Assisted in the development of client websites. Gained hands-on experience with modern frontend frameworks and responsive design techniques."
+    },
+    {
+        role: "Open Source Contributor",
+        company: "GitHub Community",
+        period: "2018 - Present",
+        description: "Actively contributing to various open-source projects. Focusing on tooling, documentation, and community support for developer tools."
+    }
+  ];
 
   return (
     <section id="experience" className="py-20 relative overflow-hidden">
         {/* Background Elements */}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-30 pointer-events-none"></div>
         
         <div className="max-w-7xl mx-auto px-6 relative z-10">
             <motion.div
@@ -108,21 +137,23 @@ const TimelineItem = ({ data, index }) => {
     <motion.div 
       initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
       whileInView={{ opacity: 1, x: 0 }}
-      whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.03)" }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="flex flex-col md:flex-row gap-8 mb-12 last:mb-0 relative group p-6 rounded-2xl border border-transparent hover:border-white/10 transition-all"
+      className="flex flex-col md:flex-row gap-8 mb-12 last:mb-0 relative group"
     >
-      <div className="w-full md:w-1/3 md:text-right relative z-10">
+      <div className="w-full md:w-1/3 md:text-right relative z-10 md:pt-2"> {/* Added md:pt-2 for alignment */}
         <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors duration-300">{data.company}</h3>
-        <p className="text-primary font-mono text-sm">{data.period}</p>
+        <span className="inline-block px-3 py-1 mt-2 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-mono">{data.period}</span>
       </div>
-      <div className="hidden md:block absolute left-1/3 top-0 bottom-0 w-px bg-white/10 -ml-px group-hover:bg-primary/50 transition-colors duration-500">
-        <div className="w-3 h-3 rounded-full bg-primary absolute top-8 left-1/2 -translate-x-1/2 shadow-[0_0_10px_rgba(59,130,246,0.5)] group-hover:scale-150 transition-transform duration-300"></div>
+      <div className="hidden md:block absolute left-[33.33%] top-0 bottom-0 w-px bg-white/10 -ml-px group-hover:bg-gradient-to-b group-hover:from-primary group-hover:to-secondary transition-all duration-500">
+        <div className="w-4 h-4 rounded-full bg-dark border-2 border-primary absolute top-2 left-1/2 -translate-x-1/2 shadow-[0_0_15px_rgba(99,102,241,0.5)] group-hover:scale-125 transition-transform duration-300 z-20"></div>
       </div>
-      <div className="w-full md:w-2/3 pl-0 md:pl-8 border-l md:border-l-0 border-white/10 md:border-none pl-4 md:pl-8 relative z-10">
-        <h4 className="text-lg font-semibold text-gray-200 mb-2 group-hover:text-white">{data.role}</h4>
-        <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">{data.description}</p>
+      <div className="w-full md:w-2/3 border-l md:border-l-0 border-white/10 md:border-none pl-6 md:pl-12 relative z-10">
+        <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-colors duration-300 hover:border-white/10 relative overflow-hidden">
+             <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+             <h4 className="text-lg font-semibold text-white mb-2 relative z-10">{data.role}</h4>
+             <p className="text-gray-400 text-sm leading-relaxed relative z-10">{data.description}</p>
+        </div>
       </div>
     </motion.div>
   );

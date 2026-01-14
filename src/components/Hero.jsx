@@ -4,6 +4,7 @@ import { Environment, Float } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, ChevronDown } from 'lucide-react';
 import LiquidOrb from './VFX/LiquidOrb';
+import TextReveal from './VFX/TextReveal';
 
 const Hero = () => {
   return (
@@ -27,7 +28,8 @@ const Hero = () => {
       </div>
 
       {/* Overlay Gradient for Text Readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/90 pointer-events-none z-10"></div>
+      {/* Overlay Gradient for Text Readability - Smoother radial fade */}
+      <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent pointer-events-none z-10 w-full h-full"></div>
       
       {/* Content Layer */}
       <div className="relative z-20 w-full max-w-7xl mx-auto px-4 md:px-6 text-center pt-20 md:pt-0">
@@ -42,24 +44,29 @@ const Hero = () => {
           </span>
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading text-white tracking-tight mb-8 drop-shadow-2xl"
-        >
-          Crafting <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 animate-gradient">Digital</span>
-          <br className="hidden md:block" />
-          <span className="relative block md:inline mt-2 md:mt-0">
-            Experiences
-            <motion.span 
-              className="absolute -bottom-2 left-1/2 md:left-0 w-24 md:w-full h-1 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full transform -translate-x-1/2 md:translate-x-0"
-              initial={{ width: 0 }}
-              animate={{ width: "100%" }}
-              transition={{ delay: 1, duration: 1 }}
-            ></motion.span>
-          </span>
-        </motion.h1>
+        <div className="mb-8 drop-shadow-2xl">
+            <div className="flex flex-wrap justify-center gap-x-4">
+                <TextReveal text="Crafting" className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading text-white tracking-tight" delay={0.1} />
+                <motion.span 
+                    initial={{ opacity: 0 }} 
+                    animate={{ opacity: 1 }} 
+                    transition={{ delay: 0.8, duration: 1 }}
+                    className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 animate-gradient"
+                >
+                    Digital
+                </motion.span>
+            </div>
+            
+            <div className="relative inline-block mt-2">
+                <TextReveal text="Experiences" className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading text-white tracking-tight" delay={1.2} />
+                 <motion.span 
+                  className="absolute -bottom-2 left-1/2 md:left-0 w-24 md:w-full h-1 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full transform -translate-x-1/2 md:translate-x-0"
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ delay: 2, duration: 1 }}
+                ></motion.span>
+            </div>
+        </div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
