@@ -18,7 +18,7 @@ const Footer = () => {
           <SocialLink href="#" icon={<Github size={20} />} />
           <SocialLink href="#" icon={<Linkedin size={20} />} />
           <SocialLink href="#" icon={<Instagram size={20} />} />
-          <SocialLink href="mailto:nitheeshengineer@gmail.com" icon={<Mail size={20} />} />
+          <SocialLink href="mailto:contact@nexavanta.com" icon={<Mail size={20} />} />
         </div>
 
         <div className="text-gray-500 text-sm">

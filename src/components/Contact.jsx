@@ -59,21 +59,16 @@ const Contact = () => {
                     btn.disabled = true;
                     btn.innerText = 'Sending...';
 
+                    // Simulate API call for static deployment
                     try {
-                        const response = await fetch('/api/contact', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(formData),
-                        });
+                        await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate delay
                         
-                        if (response.ok) {
-                            alert('Message sent successfully!');
-                            form.reset();
-                        } else {
-                            alert('Failed to send message. Please try again.');
-                        }
+                        // Log form data for debugging
+                        console.log('Form Submitted:', formData);
+                        
+                        // Simulate success
+                        alert('Message sent successfully! (This is a demo)');
+                        form.reset();
                     } catch (error) {
                         console.error('Error sending message:', error);
                         alert('An error occurred. Please try again.');
