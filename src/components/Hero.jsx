@@ -44,9 +44,9 @@ const Hero = () => {
           </span>
         </motion.div>
 
-        <div className="mb-8 drop-shadow-2xl">
-            <div className="flex flex-wrap justify-center gap-x-4">
-                <TextReveal text="Crafting" className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading text-white tracking-tight" delay={0.1} />
+        <h1 className="mb-8 drop-shadow-2xl">
+            <span className="flex flex-wrap justify-center gap-x-4">
+                <TextReveal as="span" text="Crafting" className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading text-white tracking-tight" delay={0.1} />
                 <motion.span 
                     initial={{ opacity: 0 }} 
                     animate={{ opacity: 1 }} 
@@ -55,18 +55,18 @@ const Hero = () => {
                 >
                     Digital
                 </motion.span>
-            </div>
+            </span>
             
-            <div className="relative inline-block mt-2">
-                <TextReveal text="Experiences" className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading text-white tracking-tight" delay={1.2} />
+            <span className="relative inline-block mt-2">
+                <TextReveal as="span" text="Experiences" className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading text-white tracking-tight" delay={1.2} />
                  <motion.span 
                   className="absolute -bottom-2 left-1/2 md:left-0 w-24 md:w-full h-1 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full transform -translate-x-1/2 md:translate-x-0"
                   initial={{ width: 0 }}
                   animate={{ width: "100%" }}
                   transition={{ delay: 2, duration: 1 }}
                 ></motion.span>
-            </div>
-        </div>
+            </span>
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}

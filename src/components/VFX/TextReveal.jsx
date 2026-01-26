@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const TextReveal = ({ text, className = "", delay = 0 }) => {
+const TextReveal = ({ text, className = "", delay = 0, as = "h1" }) => {
   const letters = Array.from(text);
 
   const container = {
@@ -33,8 +33,10 @@ const TextReveal = ({ text, className = "", delay = 0 }) => {
     },
   };
 
+const MotionTag = motion[as] || motion.h1;
+
   return (
-    <motion.h1
+    <MotionTag
       style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }} // Added flex wrap and centering
       variants={container}
       initial="hidden"
@@ -46,7 +48,7 @@ const TextReveal = ({ text, className = "", delay = 0 }) => {
           {letter === " " ? "\u00A0" : letter}
         </motion.span>
       ))}
-    </motion.h1>
+    </MotionTag>
   );
 };
 
